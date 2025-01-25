@@ -72,7 +72,7 @@ https://github.com/user-attachments/assets/ec071927-b689-4db3-a4df-51a8597ce747
 
 
 
-- **Landmarked Video**: Shows detected hand landmarks superimposed on the video frames.`landmarked_output.mp4` in the PWD.
+- **Landmarked Video**: Shows detected hand landmarks superimposed on the video frames. Autosaved as `landmarked_output.mp4` in the PWD.
 
 
 
@@ -111,25 +111,6 @@ SAM2 is a high-performance segmentation framework that excels in adapting to div
 
 ---
 
-## Development
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/gest_detectron
-    cd gest_detectron
-    ```
-
-2. Install the package in development mode:
-    ```bash
-    pip install -e .
-    ```
-
-3. Run tests or scripts as needed:
-    ```bash
-    python -m unittest
-    ```
-
----
 
 ## Author
 
