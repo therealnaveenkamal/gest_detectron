@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gest_detectron"
+version = "1.0.0"
+description = "A package for gesture detection using Google - Hand Landmark Detection and Segmentation using SAM2."
+authors = [
+    { name = "Naveenraj Kamalakannan", email = "naveenraj.k@nyu.edu" },
+]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+dependencies = [
+    "mediapipe",
+    "opencv_contrib_python",
+    "opencv_python",
+    "Pillow",
+    "setuptools",
+    "SAM-2 @ git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4",
+    "torch",
+    "torchvision",
+    "numpy",
+    "matplotlib",
+]
+
+[project.scripts]
+gest-detectron = "gest_detectron.main:main"

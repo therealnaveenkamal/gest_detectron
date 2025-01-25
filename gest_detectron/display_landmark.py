@@ -60,7 +60,7 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 
 # Configure video processing options
 options = HandLandmarkerOptions(
-    base_options=BaseOptions(model_asset_path='hand_landmarker.task'),
+    base_options=BaseOptions(model_asset_path='models/hand_landmarker.task'),
     running_mode=VisionRunningMode.VIDEO,  # VIDEO mode
     num_hands=2)
 

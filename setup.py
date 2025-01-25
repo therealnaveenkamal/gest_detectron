@@ -11,6 +11,11 @@ setup(
     install_requires=requirements,
     description='A package for gesture detection using Google - Hand Landmark Detection and Segmentation using SAM2.',
     author='Naveenraj Kamalakannan',
-    author_email='naveenrajk@nyu.edu',
+    author_email='naveenraj.k@nyu.edu',
     url='https://github.com/gest_detectron',
+    entry_points={
+        'console_scripts': [
+            'gest-detectron=gest_detectron.main:main',
+        ],
+    },
 )
