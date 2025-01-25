@@ -6,6 +6,8 @@ opencv_python
 Pillow
 setuptools
 SAM-2 @ git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4
-torch+cu118 --find-links https://download.pytorch.org/whl/cu118
-torchvision+cu118 --find-links https://download.pytorch.org/whl/cu118
-torchaudio+cu118 --find-links https://download.pytorch.org/whl/cu118
+
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch
+torchvision
+torchaudio
