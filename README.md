@@ -63,7 +63,12 @@ This pipeline supports fine-tuning at later stages for improved segmentation acc
  
 
 
-https://github.com/user-attachments/assets/80e24a04-4473-4e3f-9d98-19a635bfd987
+
+
+https://github.com/user-attachments/assets/ec071927-b689-4db3-a4df-51a8597ce747
+
+
+
 
 
 
@@ -71,7 +76,10 @@ https://github.com/user-attachments/assets/80e24a04-4473-4e3f-9d98-19a635bfd987
 
 
 
-https://github.com/user-attachments/assets/7f565e06-be47-44b8-bb95-f2449c7ff122
+
+https://github.com/user-attachments/assets/f51601e7-17cc-42ef-a844-e08d338f343e
+
+
 
 
 
@@ -127,7 +135,7 @@ SAM2 is a high-performance segmentation framework that excels in adapting to div
 
 **Naveenraj Kamalakannan**  
 Email: [naveenraj.k@nyu.edu](mailto:naveenraj.k@nyu.edu)  
-GitHub: [https://github.com/therealnaveenkamal/gest_detectron](https://github.com/therealnaveenkamal/gest_detectron)
+GitHub: [https://github.com/therealnaveenkamal/gest_detectron](https://github.com/therealnaveenkamal/gest_detectron)  
 Portfolio: [Website](https://itsnav.com/)
 
 ---
