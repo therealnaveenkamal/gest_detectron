@@ -15,7 +15,7 @@ import cv2
 
 
 def init_sam_predictor(fd, device, sam2_checkpoint = "sam2.1_hiera_large.pt", model_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml", video_dir = "./frames"):
-    predictor = build_sam2_video_predictor(model_cfg, sam2_checkpoint, device="cpu")
+    predictor = build_sam2_video_predictor(model_cfg, sam2_checkpoint, device=device)
     inference_state = predictor.init_state(video_path=video_dir)
 
     predictor.reset_state(inference_state)

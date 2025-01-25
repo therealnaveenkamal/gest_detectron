@@ -35,7 +35,6 @@ elif torch.backends.mps.is_available():
     device = torch.device("mps")
 else:
     device = torch.device("cpu")
-device = torch.device("cpu")
 print(f"using device: {device}")
 
 
@@ -53,7 +52,7 @@ print(f"using device: {device}")
 
 print("Predictor Calling")
 
-predictor, inference_state = init_sam_predictor(frame_data, "cpu", sam2_checkpoint = "sam2.1_hiera_large.pt", model_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml", video_dir = "./frames")
+predictor, inference_state = init_sam_predictor(frame_data, device, sam2_checkpoint = "sam2.1_hiera_large.pt", model_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml", video_dir = "./frames")
 
 print("Predictor Initialized")
 
