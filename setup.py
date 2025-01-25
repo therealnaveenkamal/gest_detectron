@@ -1,14 +1,22 @@
 from setuptools import setup, find_packages
 
-# Read requirements from requirements.txt
-with open("requirements.txt", "r") as f:
-    requirements = f.read().splitlines()
-
 setup(
     name='gest_detectron',
     version='0.1.0',
     packages=find_packages(),
-    install_requires=requirements,
+    install_requires=[
+        "matplotlib",
+        "mediapipe",
+        "numpy",
+        "opencv_contrib_python",
+        "opencv_python",
+        "Pillow",
+        "setuptools",
+        "SAM-2 @ git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4",
+        "torch",
+        "torchvision",
+        "torchaudio"
+    ],
     description='A package for gesture detection using Google - Hand Landmark Detection and Segmentation using SAM2.',
     author='Naveenraj Kamalakannan',
     author_email='naveenraj.k@nyu.edu',
