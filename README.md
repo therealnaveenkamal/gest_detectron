@@ -45,6 +45,7 @@
 ### Detect and Segment Hands in a Video
 
 In the gest_detectron directory, run the package from the command line to execute the SAM2 pipeline:
+
 ```bash
 gest-detectron
 ```
@@ -104,7 +105,7 @@ https://github.com/user-attachments/assets/f51601e7-17cc-42ef-a844-e08d338f343e
 MediaPipe Hand Landmark Detection is a real-time framework for detecting hand key points. It outputs 21 3D landmarks for each hand, providing precise localization for hand gestures and motions.   
 
 ### SAM2: Segment Anything Model
-SAM2 is a high-performance segmentation framework that excels in adapting to diverse object shapes and contexts. It uses the outputs from MediaPipe as input prompts (e.g., bounding boxes or click points) to generate segmentation masks. For this project, we used 5 TIPS and 1 WRIST points to create individual objects for both hands. The number of objects created and the landmarkers used depends will have to depend on the segmentation evaluation. This SAM2 segmented video is NOT EVALUATED.
+SAM2 is a high-performance segmentation framework designed to adapt to diverse object shapes and contexts. It utilizes outputs from MediaPipe as input prompts (e.g., bounding boxes or click points) to generate segmentation masks. In this project, we used 5 TIPS and 1 WRIST point to create individual objects for both hands. The number of objects created and the landmarks used will depend on the segmentation evaluation criteria. Note that this SAM2-segmented video has not been evaluated with any ground truths.
 
 ![image](https://github.com/user-attachments/assets/144a15c7-863e-4986-9c62-7f41508c16fb)
 
