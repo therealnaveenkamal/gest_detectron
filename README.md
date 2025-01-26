@@ -131,7 +131,7 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 ## Acknowledgments
 
 This project leverages:
-- [Google MediaPipe](https://google.github.io/mediapipe/solutions/hands)
+- [Google MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker)
 - [Segment Anything Model (SAM)](https://segment-anything.com/)
 
 Special thanks to Professor [Carlos Fernandez-Granda](https://math.nyu.edu/~cfgranda/)
