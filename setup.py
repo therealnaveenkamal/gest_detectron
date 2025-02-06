@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gest_detectron',
-    version='0.1.0',
+    version='2.1.0',
     packages=find_packages(),
     install_requires=[
         "matplotlib",
@@ -17,10 +17,10 @@ setup(
         "torchvision",
         "torchaudio"
     ],
-    description='A package for gesture detection using Google - Hand Landmark Detection and Segmentation using SAM2.',
+    description='A package for gesture detection using DinoV2 and Segmentation using SAM2.',
     author='Naveenraj Kamalakannan',
     author_email='naveenraj.k@nyu.edu',
-    url='https://github.com/gest_detectron',
+    url='https://github.com/therealnaveenkamal/gest_detectron',
     entry_points={
         'console_scripts': [
             'gest-detectron=gest_detectron.main:main',

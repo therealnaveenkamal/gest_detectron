@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gest_detectron"
-version = "1.0.0"
-description = "A package for gesture detection using Google - Hand Landmark Detection and Segmentation using SAM2."
+version = "2.1.0"
+description = "A package for gesture detection using DinoV2 and Segmentation using SAM2."
 authors = [
     { name = "Naveenraj Kamalakannan", email = "naveenraj.k@nyu.edu" },
 ]

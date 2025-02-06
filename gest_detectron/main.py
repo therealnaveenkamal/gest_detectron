@@ -11,6 +11,68 @@ import numpy as np
 from PIL import Image
 import mediapipe as mp
 
+import matplotlib.pyplot as plt
+from PIL import Image
+import mediapipe as mp
+from mediapipe import solutions
+from mediapipe.framework.formats import landmark_pb2
+
+import torch.nn as nn
+from torchvision.models import resnet50
+import torch.hub
+
+import torchvision.transforms as T
+
+
+class DinoV2Segmentation(nn.Module):
+    def __init__(self, num_classes=1):
+        super().__init__()
+        self.dinov2 = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitb14')
+        self.decoder = nn.Sequential(
+            nn.Conv2d(768, 256, kernel_size=3, padding=1),
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True),  # 16->32
+            nn.Conv2d(256, 128, kernel_size=3, padding=1),
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True),  # 32->64
+            nn.Conv2d(128, 64, kernel_size=3, padding=1),
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True),  # 64->128
+            nn.Conv2d(64, 32, kernel_size=3, padding=1),
+            nn.Upsample(size=(224, 224), mode='bilinear', align_corners=True),  # 128->224
+            nn.Conv2d(32, num_classes, kernel_size=1)
+        )
+
+    def forward(self, x):
+        # Get features (B, 256, 768)
+        features = self.dinov2.forward_features(x)['x_norm_patchtokens']
+
+        # Reshape to (B, 768, 16, 16)
+        features = features.permute(0, 2, 1).view(-1, 768, 16, 16)
+
+        return self.decoder(features)
+
+def predict_mask(model, image_path, threshold=0.5):
+    transform = T.Compose([
+        T.Resize((224, 224)),
+        T.ToTensor(),
+        T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
+    ])
+
+    image = Image.open(image_path).convert("RGB")
+    original_size = image.size
+    input_tensor = transform(image).unsqueeze(0)  # Add batch dimension
+
+    # Predict
+    with torch.no_grad():
+        output = model(input_tensor)
+        mask = torch.sigmoid(output).squeeze().numpy()  # Remove batch/channel dim
+
+    # Threshold to get binary mask
+    binary_mask = (mask > threshold).astype(np.uint8)
+
+    # Resize mask to original image size and convert to numpy array
+    mask_img = Image.fromarray(binary_mask * 255).resize(original_size, Image.NEAREST)
+
+    return image, mask_img
+
 def main():
     print("PyTorch version:", torch.__version__)
     print("Torchvision version:", torchvision.__version__)
@@ -18,7 +80,14 @@ def main():
     os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 
     # Generating Hand Landmarks
-    frame_data = process_video("test.mp4", "landmarked_output.mp4")
+    frame_data = process_video("final_corrected.mp4", "landmarked_output.mp4")
+
+    if(len(frame_data[0]['landmarks'])==0):
+        print("NO MEDIAPIPE HANDLANDMARKS WERE DETECTED. LANDMARK PIPELINE FAILURE! DINOV2 CALLING")
+    else:
+        print("MEDIAPIPE HANDLANDMARKS DETECTED")
+
+  
     print("Video Frame Extracted")
 
     # Device selection
@@ -44,8 +113,13 @@ def main():
     
 
     print("Predictor Calling")
+
+    model = DinoV2Segmentation(num_classes=1)
+    model.load_state_dict(torch.load("models/dinov2_hand_trained_segmentation.pth", map_location='cpu'))
+    model.eval()
+
     predictor, inference_state = init_sam_predictor(
-        frame_data, 
+        model, 
         device, 
         sam2_checkpoint="models/sam2.1_hiera_large.pt", 
         model_cfg="configs/sam2.1/sam2.1_hiera_l.yaml", 
@@ -63,7 +137,7 @@ def main():
 
     # Render segmented video
     render_sam_video(
-        video_path="test.mp4",
+        video_path="final_corrected.mp4",
         video_segments=video_segments,
         output_path="sam_masked_output_final.mp4",
         alpha=1
