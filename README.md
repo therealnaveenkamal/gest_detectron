@@ -1,6 +1,6 @@
 # Gest Detectron
 
-**Gest Detectron** is a Python package designed to build an automatic pipeline for tracking hand movements in videos. It combines  **Google MediaPipe Hand Landmark Detection** and **Segment Anything Model (SAM2)** to deliver highly accurate gesture segmentation and tracking.
+**Gest Detectron** is a Python package designed to build an automatic pipeline for tracking hand movements in videos. It combines  **DinoV2 + Segmentation Decoder** and **Segment Anything Model (SAM2)** to deliver highly accurate gesture segmentation and tracking.
 
 ---
 
@@ -71,8 +71,8 @@ This pipeline supports fine-tuning at later stages for improved segmentation acc
 
 
 
-https://github.com/user-attachments/assets/ec071927-b689-4db3-a4df-51a8597ce747
 
+https://github.com/user-attachments/assets/a71a6fe6-e102-420c-bc4a-7309787221a1
 
 
 
@@ -83,15 +83,10 @@ https://github.com/user-attachments/assets/ec071927-b689-4db3-a4df-51a8597ce747
 
 
 
-https://github.com/user-attachments/assets/f51601e7-17cc-42ef-a844-e08d338f343e
+
+https://github.com/user-attachments/assets/df5b0e28-5f0a-4363-b752-6bf8950b0540
 
 
-
-
-
-### Images
-
-![detectron_image](https://github.com/user-attachments/assets/af764359-4519-4005-b77c-b51acfb056d3)
 
 ---
 
@@ -100,7 +95,7 @@ https://github.com/user-attachments/assets/f51601e7-17cc-42ef-a844-e08d338f343e
 - **`gest_detectron/`**: Contains the main package modules.
 - **`requirements.txt`**: Lists required Python dependencies.
 - **`setup.py`**: Configures the package for installation.
-- **`GestDetectron_SAM_Notebook`**: Includes Jupyter Notebook for SAM2 pipeline.
+- **`GestDetectron_SAM_Notebook_Interview_WORKING.ipynb`**: Includes Jupyter Notebook for SAM2 pipeline.
 
 ---
 
@@ -110,10 +105,9 @@ https://github.com/user-attachments/assets/f51601e7-17cc-42ef-a844-e08d338f343e
 When MediaPipe fails to recognize hand landmarks due to occlusions or complex hand movements, we use DinoV2 with a segmentation head to detect hands and generate a segmentation mask. This approach ensures robust hand detection even in cases where traditional landmark-based methods struggle.
 
 ### SAM2: Segment Anything Model
-SAM2 is a high-performance segmentation framework designed to adapt to diverse object shapes and contexts. It utilizes outputs from MediaPipe as input prompts (e.g., bounding boxes or click points) to generate segmentation masks. In this project, we used 5 TIPS and 1 WRIST point to create individual objects for both hands. The number of objects created and the landmarks used will depend on the segmentation evaluation criteria. Note that this SAM2-segmented video has not been evaluated with any ground truths.
+SAM2 is a high-performance segmentation framework designed to adapt to diverse object shapes and contexts. It utilizes selected key points from the DinoV2-generated mask as input prompts (e.g., bounding boxes or click points) to generate segmentation masks across the entire video. In this project, we use 5 high probability points to create a single object for both hands. Note that this SAM2-segmented video has not been evaluated against ground truth data yet.
 
-![image](https://github.com/user-attachments/assets/144a15c7-863e-4986-9c62-7f41508c16fb)
-
+![image](https://github.com/user-attachments/assets/5b30692d-b2d0-42ee-a956-2561288336ef)
 
 ---
 
