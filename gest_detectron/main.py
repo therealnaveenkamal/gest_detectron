@@ -49,30 +49,6 @@ class DinoV2Segmentation(nn.Module):
 
         return self.decoder(features)
 
-def predict_mask(model, image_path, threshold=0.5):
-    transform = T.Compose([
-        T.Resize((224, 224)),
-        T.ToTensor(),
-        T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
-    ])
-
-    image = Image.open(image_path).convert("RGB")
-    original_size = image.size
-    input_tensor = transform(image).unsqueeze(0)  # Add batch dimension
-
-    # Predict
-    with torch.no_grad():
-        output = model(input_tensor)
-        mask = torch.sigmoid(output).squeeze().numpy()  # Remove batch/channel dim
-
-    # Threshold to get binary mask
-    binary_mask = (mask > threshold).astype(np.uint8)
-
-    # Resize mask to original image size and convert to numpy array
-    mask_img = Image.fromarray(binary_mask * 255).resize(original_size, Image.NEAREST)
-
-    return image, mask_img
-
 def main():
     print("PyTorch version:", torch.__version__)
     print("Torchvision version:", torchvision.__version__)

@@ -12,6 +12,35 @@ from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
 import cv2
 
+import torch.nn as nn
+from torchvision.models import resnet50
+import torch.hub
+import torchvision.transforms as T
+
+def predict_mask(model, image_path, threshold=0.5):
+    transform = T.Compose([
+        T.Resize((224, 224)),
+        T.ToTensor(),
+        T.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
+    ])
+
+    image = Image.open(image_path).convert("RGB")
+    original_size = image.size
+    input_tensor = transform(image).unsqueeze(0)  # Add batch dimension
+
+    # Predict
+    with torch.no_grad():
+        output = model(input_tensor)
+        mask = torch.sigmoid(output).squeeze().numpy()  # Remove batch/channel dim
+
+    # Threshold to get binary mask
+    binary_mask = (mask > threshold).astype(np.uint8)
+
+    # Resize mask to original image size and convert to numpy array
+    mask_img = Image.fromarray(binary_mask * 255).resize(original_size, Image.NEAREST)
+
+    return image, mask_img
+
 
 def init_sam_predictor(model, device, sam2_checkpoint = "sam2.1_hiera_large.pt", model_cfg = "configs/sam2.1/sam2.1_hiera_l.yaml", video_dir = "./frames"):
     predictor = build_sam2_video_predictor(model_cfg, sam2_checkpoint, device)
